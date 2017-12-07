@@ -39,7 +39,7 @@ class ResourceServerTokenAPIView(CreateAPIView):
     def post(self, request, *args, **kwargs):
 
         if not settings.CREATE_AUTH_TOKEN_ENDPOINT:
-            returni
+            return
 
         data = request.data.get
         pdata = {

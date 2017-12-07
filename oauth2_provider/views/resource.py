@@ -1,10 +1,12 @@
 """OAuth2 Views.py."""
 import requests
 
-from django.conf import settings
 from rest_framework import serializers
-from oauth2_provider.models import AccessToken
+from rest_framework.response import Response
 from rest_framework.generics import CreateAPIView
+
+from oauth2_provider.models import AccessToken
+from oauth2_provider.settings import oauth2_settings
 
 
 class AuthTokenSerializer(serializers.ModelSerializer):
@@ -37,20 +39,18 @@ class ResourceServerTokenAPIView(CreateAPIView):
     serializer_class = AuthTokenSerializer
 
     def post(self, request, *args, **kwargs):
-
-        if not settings.CREATE_AUTH_TOKEN_ENDPOINT:
-            return
-
         data = request.data.get
         pdata = {
             'scope': data('scope'),
             'grant_type': data('grant_type')
         }
         auth = (data('client_id'), data('client_secret'))
-        r = requests.post(settings.CREATE_AUTH_TOKEN_URL, data=pdata,
+        r = requests.post(oauth2_settings.CREATE_AUTH_TOKEN_URL, data=pdata,
                           auth=auth)
         try:
-            r = r.json()
-            return
+            response = r.json()
         except Exception as e:
-            return
+            response = {
+                'error': str(e)
+            }
+        return Response(response)

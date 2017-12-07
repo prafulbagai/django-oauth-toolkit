@@ -1,3 +1,4 @@
+
 import logging
 
 from django.core.exceptions import ImproperlyConfigured
@@ -103,3 +104,25 @@ class IsAuthenticatedOrTokenHasScope(BasePermission):
 
         token_has_scope = TokenHasScope()
         return (is_authenticated and not oauth2authenticated) or token_has_scope.has_permission(request, view)
+
+
+class TokenHasScopeForMethod(TokenHasScope):
+    """This class checks for scopes for specific request methods."""
+
+    def has_permission(self, request, view):
+        """
+        Over-riding `has_permission`.
+
+        Support different scopes for different request method types.
+        """
+        token = request.auth
+        if not token:
+            return False
+
+        if not hasattr(token, 'scope'):
+            return False
+
+        # Get the scopes required for the current method from the view
+        required_scopes = view.required_scopes_per_method[request.method]
+
+        return token.is_valid(required_scopes)

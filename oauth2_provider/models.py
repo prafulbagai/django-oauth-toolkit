@@ -350,6 +350,18 @@ class RefreshToken(AbstractRefreshToken):
         swappable = "OAUTH2_PROVIDER_REFRESH_TOKEN_MODEL"
 
 
+@python_2_unicode_compatible
+class Scopes(models.Model):
+    """Custom Code for having configurale scopes."""
+
+    scope = models.CharField(max_length=255, unique=True)
+    detail = models.TextField()
+    application = models.ForeignKey(Application, db_index=True)
+
+    class Meta():
+        swappable = "OAUTH2_PROVIDER_SCOPES_MODEL"
+
+
 def get_application_model():
     """ Return the Application model that is active in this project. """
     return apps.get_model(oauth2_settings.APPLICATION_MODEL)
@@ -368,6 +380,11 @@ def get_access_token_model():
 def get_refresh_token_model():
     """ Return the RefreshToken model that is active in this project. """
     return apps.get_model(oauth2_settings.REFRESH_TOKEN_MODEL)
+
+
+def get_scopes_model():
+    """ Return the Scopes model that is active in this project. """
+    return apps.get_model(oauth2_settings.SCOPES_MODEL)
 
 
 def clear_expired():
@@ -391,12 +408,3 @@ def clear_expired():
             refresh_token_model.objects.filter(access_token__expires__lt=refresh_expire_at).delete()
             access_token_model.objects.filter(refresh_token__isnull=True, expires__lt=now).delete()
         grant_model.objects.filter(expires__lt=now).delete()
-
-
-"""Custom Code for having configurale scopes."""
-
-
-class Scopes(models.Model):
-    scope = models.CharField(max_length=255, unique=True)
-    detail = models.TextField()
-    resource_application = models.ForeignKey(Application, db_index=True)

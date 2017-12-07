@@ -29,6 +29,7 @@ APPLICATION_MODEL = getattr(settings, "OAUTH2_PROVIDER_APPLICATION_MODEL", "oaut
 ACCESS_TOKEN_MODEL = getattr(settings, "OAUTH2_PROVIDER_ACCESS_TOKEN_MODEL", "oauth2_provider.AccessToken")
 GRANT_MODEL = getattr(settings, "OAUTH2_PROVIDER_GRANT_MODEL", "oauth2_provider.Grant")
 REFRESH_TOKEN_MODEL = getattr(settings, "OAUTH2_PROVIDER_REFRESH_TOKEN_MODEL", "oauth2_provider.RefreshToken")
+SCOPES_MODEL = getattr(settings, "OAUTH2_PROVIDER_SCOPES_MODEL", "oauth2_provider.Scopes")  # custom DB.
 
 DEFAULTS = {
     "CLIENT_ID_GENERATOR_CLASS": "oauth2_provider.generators.ClientIdGenerator",
@@ -50,6 +51,7 @@ DEFAULTS = {
     "ACCESS_TOKEN_MODEL": ACCESS_TOKEN_MODEL,
     "GRANT_MODEL": GRANT_MODEL,
     "REFRESH_TOKEN_MODEL": REFRESH_TOKEN_MODEL,
+    "SCOPES_MODEL": SCOPES_MODEL,  # custom DB.
     "REQUEST_APPROVAL_PROMPT": "force",
     "ALLOWED_REDIRECT_URI_SCHEMES": ["http", "https"],
 
@@ -64,6 +66,7 @@ DEFAULTS = {
 
     # Custom Resource Server with Token Introspection
     'CREATE_AUTH_TOKEN_URL': None,
+    'SERVER_TYPE': None  # Possible Values (AUTH, RESOURCE). Leave `None`, if there's no separate Auth and Resource Server.
 }
 
 # List of settings that cannot be empty

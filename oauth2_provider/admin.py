@@ -2,7 +2,7 @@ from django.contrib import admin
 
 from .models import (
     get_access_token_model, get_application_model,
-    get_grant_model, get_refresh_token_model
+    get_grant_model, get_refresh_token_model, get_scopes_model
 )
 
 
@@ -31,12 +31,17 @@ class RefreshTokenAdmin(admin.ModelAdmin):
     raw_id_fields = ("user", "access_token")
 
 
+class ScopesAdmin(admin.ModelAdmin):
+    list_display = ("scope", "detail", "application")
+
 Application = get_application_model()
 Grant = get_grant_model()
 AccessToken = get_access_token_model()
 RefreshToken = get_refresh_token_model()
+Scopes = get_scopes_model()
 
 admin.site.register(Application, ApplicationAdmin)
 admin.site.register(Grant, GrantAdmin)
 admin.site.register(AccessToken, AccessTokenAdmin)
 admin.site.register(RefreshToken, RefreshTokenAdmin)
+admin.site.register(Scopes, ScopesAdmin)

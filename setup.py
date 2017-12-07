@@ -14,7 +14,11 @@ INSTALL_REQUIRES = [
 setup(
     name='django-oauth-toolkit',
     version=VERSION,
-    packages=['oauth2_provider'],
+    packages=['oauth2_provider', 'oauth2_provider.contrib', 'oauth2_provider.contrib.rest_framework',
+              'oauth2_provider.management', 'oauth2_provider.views', 'oauth2_provider.templates',
+              'oauth2_provider.migrations'],
+    include_package_data=True,
+    zip_safe=False,
     author='Praful Bagai',
     url='https://bitbucket.org/pseynse/oauth2',
     description=DESCRIPTION,

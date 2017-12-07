@@ -16,6 +16,7 @@ class Migration(migrations.Migration):
         migrations.swappable_dependency(oauth2_settings.ACCESS_TOKEN_MODEL),
         migrations.swappable_dependency(oauth2_settings.REFRESH_TOKEN_MODEL),
         migrations.swappable_dependency(oauth2_settings.GRANT_MODEL),
+        migrations.swappable_dependency(oauth2_settings.SCOPES_MODEL),
     ]
 
     operations = [
@@ -79,6 +80,19 @@ class Migration(migrations.Migration):
             options={
                 'abstract': False,
                 'swappable': 'OAUTH2_PROVIDER_REFRESH_TOKEN_MODEL',
+            },
+        ),
+        migrations.CreateModel(
+            name='Scopes',
+            fields=[
+                ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
+                ('scope', models.CharField(max_length=255, unique=True)),
+                ('detail', models.TextField()),
+                ('application', models.ForeignKey(to=oauth2_settings.APPLICATION_MODEL, on_delete=models.CASCADE)),
+            ],
+            options={
+                'abstract': False,
+                'swappable': 'OAUTH2_PROVIDER_SCOPES_MODEL',
             },
         ),
     ]

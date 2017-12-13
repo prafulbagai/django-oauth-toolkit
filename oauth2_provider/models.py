@@ -350,7 +350,6 @@ class RefreshToken(AbstractRefreshToken):
         swappable = "OAUTH2_PROVIDER_REFRESH_TOKEN_MODEL"
 
 
-<<<<<<< HEAD
 @python_2_unicode_compatible
 class Scopes(models.Model):
     """Custom Code for having configurale scopes."""
@@ -363,8 +362,6 @@ class Scopes(models.Model):
         swappable = "OAUTH2_PROVIDER_SCOPES_MODEL"
 
 
-=======
->>>>>>> 231efffdcec27d4535032f5ba75e2f6a8aae1328
 def get_application_model():
     """ Return the Application model that is active in this project. """
     return apps.get_model(oauth2_settings.APPLICATION_MODEL)
@@ -385,14 +382,11 @@ def get_refresh_token_model():
     return apps.get_model(oauth2_settings.REFRESH_TOKEN_MODEL)
 
 
-<<<<<<< HEAD
 def get_scopes_model():
     """ Return the Scopes model that is active in this project. """
     return apps.get_model(oauth2_settings.SCOPES_MODEL)
 
 
-=======
->>>>>>> 231efffdcec27d4535032f5ba75e2f6a8aae1328
 def clear_expired():
     now = timezone.now()
     refresh_expire_at = None

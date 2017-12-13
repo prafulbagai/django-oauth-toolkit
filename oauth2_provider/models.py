@@ -356,7 +356,7 @@ class Scopes(models.Model):
 
     scope = models.CharField(max_length=255, unique=True)
     detail = models.TextField()
-    application = models.ForeignKey(Application, db_index=True)
+    application = models.ForeignKey(oauth2_settings.APPLICATION_MODEL, db_index=True)
 
     class Meta():
         swappable = "OAUTH2_PROVIDER_SCOPES_MODEL"

@@ -20,7 +20,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     author='Praful Bagai',
-    url='https://bitbucket.org/pseynse/oauth2',
+    url='https://github.com/prafulbagai/django-oauth-toolkit',
     description=DESCRIPTION,
     install_requires=INSTALL_REQUIRES,
 )
